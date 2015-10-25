@@ -27,7 +27,7 @@ Brand.query.filter_by(id=8).one()
 
 # Get all models with the **name** Corvette and the **brand_name** Chevrolet.
 
-Model.query.filter(Model.name =="Corvette", Model.brand_name =='Chevrolet').all()
+Model.query.filter(Model.name == "Corvette", Model.brand_name == 'Chevrolet').all()
 
 # Get all models that are older than 1960.
 
@@ -55,7 +55,9 @@ Model.query.filter(Model.brand_name != 'Chevrolet').all()
 
 # Fill in the following functions. (See directions for more info.)
 
+
 def get_model_info(year):
+
     '''Takes in a year, and prints out each model, brand_name, and brand
     headquarters for that year using only ONE database query.'''
 
@@ -66,6 +68,7 @@ def get_model_info(year):
 
 
 def get_brands_summary():
+
     '''Prints out each brand name, and each model name for that brand
      using only ONE database query.'''
 
@@ -97,10 +100,20 @@ def get_brands_summary():
 
 def search_brands_by_name(mystr):
 
+    """Returns a list of objects that are brands whose name contains or
+    is equal to the input string"""
+
+    brand_objects = Brand.query.filter(Brand.name.like("%mystr%")).all()
+
+    return brand_objects
+
 
 def get_models_between(start_year, end_year):
-    model_info = db.session.query(Model.name, Model.year), 
-                                filter(year > start_year, year < end_year).all()
+
+    """Returns a list of objects that are models with years that fall
+    between the start year and end year"""
+
+    model_info = Model.query.filter(year > start_year, year < end_year).all()
 
     return model_info
 
